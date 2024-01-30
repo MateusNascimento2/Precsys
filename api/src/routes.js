@@ -15,10 +15,10 @@ router.use(validateToken);
 router.use(isActive);
 
 router.get('/api/users', isAdmin, UserController.index);
-router.get('/users/:id', UserController.show);
-router.delete('/users/:id', UserController.delete);
-router.post('/users', UserController.store);
-router.put('/users/:id', UserController.update);
+router.get('/api/users/:id', UserController.show);
+router.delete('/api/users/:id', UserController.delete);
+router.post('/api/users', UserController.store);
+router.put('/api/users/:id', UserController.update);
 
 router.get('/api/calculo', CalculoController.render);
 
