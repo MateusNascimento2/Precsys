@@ -8,22 +8,22 @@ const { validateToken, isAdmin, isActive } = require('./JWT');
 
 const router = Router();
 
-router.get('/login', LoginController.render);
-router.post('/login', LoginController.login);
+router.get('/api/login', LoginController.render);
+router.post('/api/login', LoginController.login);
 
 router.use(validateToken);
 router.use(isActive);
 
-router.get('/users', isAdmin, UserController.index);
+router.get('/api/users', isAdmin, UserController.index);
 router.get('/users/:id', UserController.show);
 router.delete('/users/:id', UserController.delete);
 router.post('/users', UserController.store);
 router.put('/users/:id', UserController.update);
 
-router.get('/calculo', CalculoController.render);
+router.get('/api/calculo', CalculoController.render);
 
-router.get('/cessions', CessionController.index);
+router.get('/api/cessions', CessionController.index);
 
-router.get('/dashboard', DashboardController.render);
+router.get('/api/dashboard', DashboardController.render);
 
 module.exports = router;
