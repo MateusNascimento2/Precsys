@@ -1,6 +1,5 @@
 const { Router } = require('express');
 const UserController = require('./app/controllers/UserController');
-const CategoryController = require('./app/controllers/CategoryController');
 const LoginController = require('./app/controllers/LoginController');
 const DashboardController = require('./app/controllers/DashboardController');
 const CalculoController = require('./app/controllers/CalculoController');
@@ -24,9 +23,6 @@ router.put('/users/:id', UserController.update);
 router.get('/calculo', CalculoController.render);
 
 router.get('/cessions', CessionController.index);
-
-router.get('/categories', CategoryController.index);
-router.post('/categories', CategoryController.store);
 
 router.get('/dashboard', DashboardController.render);
 
