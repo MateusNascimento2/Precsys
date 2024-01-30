@@ -8,7 +8,7 @@ const routes = require('./routes');
 const app = express();
 
 app.set('view engine', 'ejs');
-app.use(cors({ credentials: true, origin: 'http://localhost:3000' }));
+app.use(cors({ credentials: true }));
 app.use(cookieParser());
 app.use(express.json());
 
@@ -28,4 +28,4 @@ httpsServer.listen(443, () => {
 });
  */
 
-app.listen(3000, () => console.log('Server started at http://localhost:3000'));
+app.listen(3000, () => console.log('Server started'));
