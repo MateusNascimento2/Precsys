@@ -22,7 +22,7 @@ class LoginController {
     const accessToken = createTokens(user);
     console.log(accessToken);
 
-    response.setHeader('Set-Cookie', `access-token=${accessToken}; Path=/; HttpOnly; SameSite=Strict; Max-Age=295400`);
+    response.setHeader('Set-Cookie', `access-token=${accessToken}; Path=/; HttpOnly; Max-Age=295400; Secure; SameSite=None`);
 
     console.log('Login Successful');
     response.json('Logged In');

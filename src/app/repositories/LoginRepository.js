@@ -5,7 +5,7 @@ class LoginRepository {
   async IsRegistered(cpfcnpj, password) {
     const [row] = await db.query(`
     SELECT *
-    FROM users
+    FROM precsysa_sv.users
     WHERE users.cpfcnpj = ?
   `, [cpfcnpj]);
 

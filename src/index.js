@@ -3,12 +3,14 @@ const cors = require('cors');
 const cookieParser = require('cookie-parser');
 // eslint-disable-next-line no-unused-vars
 const expressAsyncErrors = require('express-async-errors');
+const path = require('path');
 const routes = require('./routes');
 
 const app = express();
 
 app.set('view engine', 'ejs');
-app.use(cors({ credentials: true }));
+app.set('views', path.join(__dirname, 'views'));
+app.use(cors({ credentials: true, origin: 'https://precsys2.vercel.app' }));
 app.use(cookieParser());
 app.use(express.json());
 
@@ -29,3 +31,5 @@ httpsServer.listen(443, () => {
  */
 
 app.listen(3000, () => console.log('Server started at http://localhost:3000'));
+
+module.exports = app;

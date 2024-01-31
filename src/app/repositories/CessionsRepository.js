@@ -2,7 +2,7 @@ const db = require('../../database/index');
 
 class CessionsRepository {
   async findAll() {
-    const rows = db.query('SELECT * FROM precsys_teste.cessoes');
+    const rows = db.query('SELECT * FROM precsysa_sv.cessoes');
     return rows;
   }
 }

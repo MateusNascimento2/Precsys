@@ -35,17 +35,21 @@
         password: document.getElementById('password').value,
       };
 
-      const response = await fetch('http://localhost:3000/login', {
+      const response = await fetch('/api/login', {
         method: 'POST',
         headers: {
-            'Content-Type': 'application/json',
+          'Content-Type': 'application/json',
         },
+        credentials:"include",
+        mode: 'cors',
         body: JSON.stringify(formData),
       });
 
-      // Faça algo com a resposta, se necessário
-      const result = await response.json();
-      console.log(result);
+      const accessToken  = await response.json();
+
+      if (accessToken === "Logged In") {
+        window.location.replace('/api/dashboard');
+      }
     });
  </script>
 
