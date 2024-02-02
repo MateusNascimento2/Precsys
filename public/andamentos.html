@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <table id="andamentos">
+    <tbody id="data-andamentos">
+    </tbody>
+  </table>
+
+
+  <script>
+    function populateTableData(data) {
+      const dataSessionsContainer = document.getElementById('data-andamentos');
+
+      const tableRow = document.createElement('tr');
+
+      for (const prop in data) {
+        const tableData = document.createElement('td');
+        tableData.textContent = data[prop];
+        tableRow.appendChild(tableData);
+      }
+
+      dataSessionsContainer.appendChild(tableRow);
+    }
+
+    async function fetchAndamentos() {
+
+      const params = new URLSearchParams(window.location.search);
+      const numeroPrecatorio = params.get('precatorio');
+
+      const response = await fetch(`/api/andamentos/${numeroPrecatorio}`).then(res => res.json());
+      console.log(response);
+
+      response.forEach((data) => populateTableData(data))
+    }
+
+    fetchAndamentos()
+  </script>
+</body>
+</html>

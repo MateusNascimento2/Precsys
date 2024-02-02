@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <table id="sessions">
+    <tbody id="data-sessions">
+      <tr><a href="andamentos.html">2011.00692-3</a></tr>
+    </tbody>
+  </table>
+
+  <script>
+    function populateTableData(data) {
+      const dataSessionsContainer = document.getElementById('data-sessions');
+
+      const tableRow = document.createElement('tr');
+
+      for (const prop in data) {
+        const tableData = document.createElement('td');
+        if(prop === 'precatorio') {
+          const linkPrecatorio = document.createElement('a');
+          linkPrecatorio.textContent = data[prop];
+          linkPrecatorio.classList = 'numero-precatorio';
+          linkPrecatorio.addEventListener('click', function () {
+            fetchAndamentos(this.textContent);
+          });
+          tableData.appendChild(linkPrecatorio);
+          tableRow.appendChild(tableData);
+        } else {
+          tableData.textContent = data[prop];
+          tableRow.appendChild(tableData);
+        }
+
+      }
+
+      dataSessionsContainer.appendChild(tableRow);
+    }
+
+    async function fetchSessions() {
+      const response = await fetch('/api/cessions').then(res => res.json());
+      console.log(response);
+
+      response.forEach((data) => populateTableData(data))
+    }
+
+    fetchSessions();
+
+    const fetchAndamentos = async (numeroPrecatorio) => {
+      const response = await fetch(`/api/andamentos/${numeroPrecatorio}`).then(res => res.json());
+
+      // Codificar os dados como uma string de consulta (query string)
+      const queryParams = new URLSearchParams(response).toString();
+
+      // Redirecionar para a página de andamentos com os parâmetros na URL
+      window.location.assign(`/andamentos.html?${queryParams}`);
+
+    }
+
+  </script>
+</body>
+</html>
