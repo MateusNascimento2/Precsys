@@ -13,8 +13,8 @@ const router = Router();
 router.get('/api/login', LoginController.render);
 router.post('/api/login', LoginController.login);
 
-// router.use(validateToken);
-// router.use(isActive);
+router.use(validateToken);
+router.use(isActive);
 
 router.get('/api/users', isAdmin, UserController.index);
 router.get('/api/users/:id', UserController.show);

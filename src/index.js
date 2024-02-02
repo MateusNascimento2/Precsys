@@ -10,7 +10,8 @@ const app = express();
 
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
-app.use(cors({ credentials: true, origin: 'https://precsys2.vercel.app' }));
+const allowedOrigins = ['https://precsys2.vercel.app', 'https://replit.com/@MateusAssis4/login-API'];
+app.use(cors({ credentials: true, origin: allowedOrigins }));
 app.use(cookieParser());
 app.use(express.json());
 
