@@ -49,13 +49,15 @@
     fetchSessions();
 
     const fetchAndamentos = async (numeroPrecatorio) => {
-      const response = await fetch(`/api/andamentos/${numeroPrecatorio}`).then(res => res.json());
+      const response = await fetch(`/api/andamentos/${numeroPrecatorio}`)
 
       // Codificar os dados como uma string de consulta (query string)
-      const queryParams = new URLSearchParams(response).toString();
+      const queryParams = new URLSearchParams();
+      queryParams.append('precatorio', numeroPrecatorio);
+      const queryString = queryParams.toString();
 
       // Redirecionar para a página de andamentos com os parâmetros na URL
-      window.location.assign(`/andamentos.html?${queryParams}`);
+      window.location.assign(`/andamentos.html?n=${numeroPrecatorio}`);
 
     }
 

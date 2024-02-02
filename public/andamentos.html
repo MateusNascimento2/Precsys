@@ -30,7 +30,7 @@
     async function fetchAndamentos() {
 
       const params = new URLSearchParams(window.location.search);
-      const numeroPrecatorio = params.get('precatorio');
+      const numeroPrecatorio = params.get('n');
 
       const response = await fetch(`/api/andamentos/${numeroPrecatorio}`).then(res => res.json());
       console.log(response);
