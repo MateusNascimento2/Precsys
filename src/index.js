@@ -3,15 +3,12 @@ const cors = require('cors');
 const cookieParser = require('cookie-parser');
 // eslint-disable-next-line no-unused-vars
 const expressAsyncErrors = require('express-async-errors');
-const path = require('path');
 const routes = require('./routes');
 
 const app = express();
 
-app.set('view engine', 'ejs');
-app.set('views', path.join(__dirname, 'views'));
-const allowedOrigins = ['https://precsys2.vercel.app', 'https://replit.com/@MateusAssis4/login-API'];
-app.use(cors({ credentials: true, origin: allowedOrigins }));
+// const allowedOrigins = ['https://precsys2.vercel.app', 'https://dc52f968-3718-41d0-ac25-fe71659c3cac-00-28j7vjdkqe4xr.kirk.replit.dev/', 'http://localhost:3000/'];
+app.use(cors({ credentials: true, origin: 'http://localhost:3000' }));
 app.use(cookieParser());
 app.use(express.json());
 
@@ -23,13 +20,6 @@ app.use((error, request, response, next) => {
   console.log(error);
   response.sendStatus(500);
 });
-
-/* const httpsServer = https.createServer(app);
-
-httpsServer.listen(443, () => {
-  console.log('Server started at https https://testeapi.precsys.app.br/');
-});
- */
 
 app.listen(3000, () => console.log('Server started at http://localhost:3000'));
 

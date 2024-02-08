@@ -2,6 +2,20 @@ const bcrypt = require('bcrypt');
 const db = require('../../database/index');
 
 class LoginRepository {
+  async IsCpfCnpjRegistered(cpfcnpj) {
+    const [row] = await db.query(`
+    SELECT *
+    FROM precsysa_sv.users
+    WHERE users.cpfcnpj = ?
+    `, [cpfcnpj]);
+
+    if (!row) {
+      return null;
+    }
+
+    return row;
+  }
+
   async IsRegistered(cpfcnpj, password) {
     const [row] = await db.query(`
     SELECT *

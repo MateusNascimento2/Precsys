@@ -10,7 +10,8 @@ const AndamentoController = require('./app/controllers/AndamentoController');
 
 const router = Router();
 
-router.get('/api/login', LoginController.render);
+// router.get('/api/login', LoginController.render);
+router.post('/api/checkCpfCnpj', LoginController.checkCpfCnpj);
 router.post('/api/login', LoginController.login);
 
 router.use(validateToken);
