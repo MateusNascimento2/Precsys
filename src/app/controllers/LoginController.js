@@ -6,20 +6,21 @@ const { createTokens } = require('../../JWT');
 // https://na8wxsbombeghbmf.public.blob.vercel-storage.com/avatar/150-1-UpicXw2rjKTuzYPqtLS2LpWDXjtZvn.jpg
 
 class LoginController {
-  render(request, response) {
-    response.render('index');
-  }
-
   async checkCpfCnpj(request, response) {
     const { blobs } = await list();
-    // console.log({ blobs });
+    console.log({ blobs });
 
     const { cpfcnpj } = request.body;
 
     const isUserCPFRegistered = await LoginRepository.IsCpfCnpjRegistered(cpfcnpj);
 
     if (!isUserCPFRegistered) {
-      response.status(401).json({ error: 'Invalid CPF/CNPJ' });
+      response.status(401).json({ error: 'CPF/CNPJ inválido.', className: 'py-3 px-4 rounded border border-red-600 bg-red-200 text-red-700' });
+    }
+
+    if (!isUserCPFRegistered.ativo) {
+      response.status(401).json({ error: 'Usuário desativado.', className: 'py-3 px-4 rounded border border-yellow-600 bg-yellow-100 text-yellow-700' });
+      return;
     }
 
     const user = isUserCPFRegistered;
@@ -47,7 +48,7 @@ class LoginController {
     const isUserRegistered = await LoginRepository.IsRegistered(cpfcnpj, password);
 
     if (!isUserRegistered) {
-      response.status(401).json({ error: 'Invalid CPF/CNPJ or Password' });
+      response.status(401).json({ error: 'Senha inválida.' });
       return;
     }
 
@@ -58,7 +59,7 @@ class LoginController {
     response.setHeader('Set-Cookie', `access-token=${accessToken}; Path=/; HttpOnly; Max-Age=295400; Secure; SameSite=None`);
 
     console.log('Login Successful');
-    response.json('Logged In');
+    response.json(user);
   }
 }
 
