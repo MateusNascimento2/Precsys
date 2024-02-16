@@ -9,8 +9,10 @@ const app = express();
 
 // const allowedOrigins = ['https://precsys2.vercel.app', 'https://dc52f968-3718-41d0-ac25-fe71659c3cac-00-28j7vjdkqe4xr.kirk.replit.dev/', 'http://localhost:3000/'];
 app.use(cors({ credentials: true, origin: 'http://localhost:3000' }));
-app.use(cookieParser());
+
 app.use(express.json());
+
+app.use(cookieParser());
 
 app.use(routes);
 

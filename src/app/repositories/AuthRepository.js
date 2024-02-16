@@ -1,11 +1,11 @@
 const bcrypt = require('bcrypt');
 const db = require('../../database/index');
 
-class LoginRepository {
+class AuthRepository {
   async IsCpfCnpjRegistered(cpfcnpj) {
     const [row] = await db.query(`
     SELECT *
-    FROM precsysa_sv.users
+    FROM precsysa_dev.users
     WHERE users.cpfcnpj = ?
     `, [cpfcnpj]);
 
@@ -19,7 +19,7 @@ class LoginRepository {
   async IsRegistered(cpfcnpj, password) {
     const [row] = await db.query(`
     SELECT *
-    FROM precsysa_sv.users
+    FROM precsysa_dev.users
     WHERE users.cpfcnpj = ?
   `, [cpfcnpj]);
 
@@ -38,4 +38,4 @@ class LoginRepository {
   }
 }
 
-module.exports = new LoginRepository();
+module.exports = new AuthRepository();
