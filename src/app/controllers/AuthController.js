@@ -66,7 +66,8 @@ class AuthController {
     // console.log(currentUser);
     // botar o refreshToken no banco de dados junto com o usuario
 
-    response.cookie('refreshToken', refreshToken, { httpOnly: true, maxAge: 24 * 60 * 60 * 1000 });
+    // eslint-disable-next-line object-curly-newline
+    response.cookie('refreshToken', refreshToken, { httpOnly: true, sameSite: 'None', secure: true, maxAge: 24 * 60 * 60 * 1000 });
     response.json({ token: accessToken, result: user });
 
     // eslint-disable-next-line max-len
