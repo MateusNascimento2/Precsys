@@ -64,14 +64,10 @@ class AuthController {
     console.log(RefreshtokenRegistered);
 
     // console.log(currentUser);
-    // botar o refreshToken no banco de dados junto com o usuario
 
     // eslint-disable-next-line object-curly-newline
     response.cookie('refreshToken', refreshToken, { httpOnly: true, sameSite: 'None', secure: true, maxAge: 24 * 60 * 60 * 1000 });
-    response.json({ token: accessToken, result: user });
-
-    // eslint-disable-next-line max-len
-    // response.setHeader('Set-Cookie', `access-token=${accessToken}; Path=/; HttpOnly; Max-Age=295400; Secure; SameSite=None`);
+    response.json({ accessToken, user });
 
     console.log('Login Successful');
   }

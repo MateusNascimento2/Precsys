@@ -4,8 +4,8 @@ const dotenv = require('dotenv');
 dotenv.config({ path: './.env' });
 
 const createAcessToken = (user) => {
-  const accessToken = jwt.sign({ user }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '300s' });
-  console.log(`AcessToken: ${accessToken}`);
+  const accessToken = jwt.sign({ user }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '5m' });
+  console.log(`AccessToken: ${accessToken}`);
 
   return accessToken;
 };
@@ -41,15 +41,15 @@ const validateRefreshToken = (request, response, refreshToken, foundUser) => {
   try {
     const validRefreshToken = jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET);
     if (validRefreshToken) {
-      const acessToken = jwt.sign({ foundUser }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '300s' });
-      response.json({ acessToken });
+      const accessToken = jwt.sign({ foundUser }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '5m' });
+      response.json({ accessToken, foundUser });
     }
   } catch (err) {
     return response.sendStatus(403);
   }
 };
 
-const isActive = (request, response, next) => {
+/* const isActive = (request, response, next) => {
   if (request.user && request.user.ativo) {
     console.log('User is active');
     return next();
@@ -64,8 +64,8 @@ const isAdmin = (request, response, next) => {
     return next();
   }
   return response.status(403).json({ error: 'Permission denied. User is not an admin.' });
-};
+}; */
 
 module.exports = {
-  createAcessToken, createRefreshToken, validateToken, validateRefreshToken, isAdmin, isActive,
+  createAcessToken, createRefreshToken, validateToken, validateRefreshToken,
 };

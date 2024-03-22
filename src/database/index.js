@@ -16,9 +16,6 @@ exports.query = async (query, values) => {
 }; */
 
 const mysql = require('mysql2/promise');
-const dotenv = require('dotenv');
-
-dotenv.config({ path: './.env' });
 
 const connection = mysql.createPool({
   host: process.env.DATABASE_HOST,

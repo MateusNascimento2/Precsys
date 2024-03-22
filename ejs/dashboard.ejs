@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard</title>
+</head>
+<body>
+  <h1>Dashboard</h1>
+  <% if (message) { %>
+    <p><%= message %></p>
+  <% } %>
+  <% if (locals.admin) { %>
+    <!-- Estrutura HTML específica para administradores -->
+    <aside>
+      <span>ADMINISTRAÇÃO<span>
+      <ul>
+        <li><a href="/calculo">Calculo</a></li>
+      </ul>
+      <!-- Adicione aqui o restante da estrutura específica para administradores -->
+    </aside>
+  <% } %>
+
+  <script>
+    function getCalculoPage() {
+      window.location.href = '/api/calculo'
+    }
+
+    document.querySelector('a').addEventListener('click', () => getCalculoPage())
+  </script>
+</body>
+</html>

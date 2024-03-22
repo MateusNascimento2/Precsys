@@ -18,13 +18,13 @@ class LogoutController {
     const foundUser = usersDB.find((person) => person.refreshToken === refreshToken);
 
     if (!foundUser) {
-      response.clearCookie('refreshtoken', { httpOnly: true, sameSite: 'None', secure: true });
+      response.clearCookie('refreshToken', { httpOnly: true, sameSite: 'None', secure: true });
       return response.sendStatus(204);
     }
 
     await RefreshTokenRepository.store(foundUser.id, refreshToken = '');
 
-    response.clearCookie('refreshtoken', { httpOnly: true, sameSite: 'None', secure: true });
+    response.clearCookie('refreshToken', { httpOnly: true, sameSite: 'None', secure: true });
     response.sendStatus(204);
   }
 }
