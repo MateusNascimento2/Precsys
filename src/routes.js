@@ -8,6 +8,9 @@ const CessionarioController = require('./app/controllers/CessionarioController')
 const AndamentoController = require('./app/controllers/AndamentoController');
 const LogoutController = require('./app/controllers/LogoutController');
 const StatusController = require('./app/controllers/StatusController');
+const OrcamentosController = require('./app/controllers/OrcamentosController');
+const NaturezaController = require('./app/controllers/NaturezaController');
+const EmpresaController = require('./app/controllers/EmpresaController');
 
 const router = Router();
 
@@ -27,7 +30,13 @@ router.put('/api/users/:id', UserController.update);
 
 router.get('/api/status', StatusController.index);
 
-router.get('/api/cessions', CessaoController.index);
+router.get('/api/orcamentos', OrcamentosController.index);
+
+router.get('/api/natureza', NaturezaController.index);
+
+router.get('/api/empresas', EmpresaController.index);
+
+router.get('/api/cessoes', CessaoController.index);
 
 router.get('/api/cessionarios', CessionarioController.index);
 

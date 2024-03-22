@@ -7,8 +7,24 @@ const routes = require('./routes');
 
 const app = express();
 
-// const allowedOrigins = ['https://precsys2.vercel.app', 'https://dc52f968-3718-41d0-ac25-fe71659c3cac-00-28j7vjdkqe4xr.kirk.replit.dev/', 'http://localhost:3000/'];
-app.use(cors({ credentials: true, origin: 'http://localhost:3000' }));
+// Definindo as origens permitidas em um array
+const allowedOrigins = [
+  'https://precsys2.vercel.app',
+  'https://dc52f968-3718-41d0-ac25-fe71659c3cac-00-28j7vjdkqe4xr.kirk.replit.dev',
+  'http://localhost:3000',
+  'https://testeapi.precsys.app.br',
+];
+
+// Middleware para configurar o cabeçalho Access-Control-Allow-Origin
+app.use((req, res, next) => {
+  const { origin } = req.headers;
+  if (allowedOrigins.includes(origin)) {
+    res.setHeader('Access-Control-Allow-Origin', origin);
+  }
+  next();
+});
+
+app.use(cors({ credentials: true, origin: allowedOrigins }));
 
 app.use(express.json());
 
