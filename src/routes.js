@@ -11,6 +11,11 @@ const StatusController = require('./app/controllers/StatusController');
 const OrcamentosController = require('./app/controllers/OrcamentosController');
 const NaturezaController = require('./app/controllers/NaturezaController');
 const EmpresaController = require('./app/controllers/EmpresaController');
+const OrcamentoAnoController = require('./app/controllers/OrcamentoAnoController');
+const VaraController = require('./app/controllers/VaraController');
+const TeleController = require('./app/controllers/TeleController');
+const EscreventeController = require('./app/controllers/EscreventeController');
+const JuridicoController = require('./app/controllers/JuridicoController');
 
 const router = Router();
 
@@ -32,14 +37,26 @@ router.get('/api/status', StatusController.index);
 
 router.get('/api/orcamentos', OrcamentosController.index);
 
+router.get('/api/orcamentosAnos', OrcamentoAnoController.index);
+
 router.get('/api/natureza', NaturezaController.index);
 
 router.get('/api/empresas', EmpresaController.index);
 
 router.get('/api/cessoes', CessaoController.index);
+router.get('/api/cessoes/:id', CessaoController.show);
+router.post('/api/cessoes', CessaoController.store);
 
 router.get('/api/cessionarios', CessionarioController.index);
 
 router.get('/api/andamentos/:precatorio', AndamentoController.index);
+
+router.get('/api/vara', VaraController.index);
+
+router.get('/api/tele', TeleController.index);
+
+router.get('/api/escreventes', EscreventeController.index);
+
+router.get('/api/juridicos', JuridicoController.index);
 
 module.exports = router;
