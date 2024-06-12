@@ -21,9 +21,12 @@ class CessaoController {
 
   async store(request, response) {
     // criar uma nova cessão
+
+    console.log(request.body);
+
     const {
       precatorio, processo, cedente, vara, ente, ano, natureza, empresa,
-      dataCessao, repComercial, escrevente, juridico,
+      dataCessao, repComercial, escrevente, juridico, status,
     } = request.body;
 
     if (!precatorio) {
@@ -83,9 +86,18 @@ class CessaoController {
       repComercial,
       escrevente,
       juridico,
+      status,
     });
 
     return response.status(201).json(cessao);
+  }
+
+  async delete(request, response) {
+    // Deletar um usuario
+    const { id } = request.params;
+
+    await CessoesRepository.delete(id);
+    return response.sendStatus(204);
   }
 }
 

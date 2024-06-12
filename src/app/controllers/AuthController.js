@@ -1,8 +1,10 @@
 const { list } = require('@vercel/blob');
 
+const requestIp = require('request-ip');
 const LoginRepository = require('../repositories/AuthRepository');
 const RefreshTokenRepository = require('../repositories/RefreshTokenRepository');
 const { createAcessToken, createRefreshToken } = require('../../JWT');
+const AuthRepository = require('../repositories/AuthRepository');
 
 // https://na8wxsbombeghbmf.public.blob.vercel-storage.com/avatar/150-1-UpicXw2rjKTuzYPqtLS2LpWDXjtZvn.jpg
 
@@ -46,6 +48,33 @@ class AuthController {
     console.log(request.body);
 
     const { cpfcnpj, password } = request.body;
+    const clientIp = requestIp.getClientIp(request);
+
+    function getCurrentDateTime() {
+      const date = new Date();
+
+      // Formatar a data e hora para o formato desejado usando toLocaleString
+      const options = {
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit',
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit',
+        hour12: false,
+        timeZone: 'America/Sao_Paulo', // Define o fuso horário para São Paulo, Brasil
+      };
+
+      const formattedDate = date.toLocaleString('pt-BR', options);
+
+      // Formatar a string para "YYYY-MM-DD HH:mm:ss"
+      const [datePart, timePart] = formattedDate.split(' ');
+      const [day, month, year] = datePart.split('/');
+      return `${year}-${month}-${day} ${timePart}`;
+    }
+
+    // Exemplo de uso
+    const currentDateTime = getCurrentDateTime();
 
     const isUserRegistered = await LoginRepository.IsRegistered(cpfcnpj, password);
 
@@ -62,6 +91,8 @@ class AuthController {
 
     const RefreshtokenRegistered = await RefreshTokenRepository.store(user.id, refreshToken);
     console.log(RefreshtokenRegistered);
+
+    await AuthRepository.clientLog(user.id, clientIp, currentDateTime);
 
     // console.log(currentUser);
 

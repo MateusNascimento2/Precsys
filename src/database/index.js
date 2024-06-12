@@ -1,20 +1,3 @@
-/* const { Client } = require('pg');
-
-const client = new Client({
-  host: 'localhost',
-  port: 5432,
-  user: 'root',
-  password: 'root',
-  database: 'precsys',
-});
-
-client.connect();
-
-exports.query = async (query, values) => {
-  const { rows } = await client.query(query, values);
-  return rows;
-}; */
-
 const mysql = require('mysql2/promise');
 
 const connection = mysql.createPool({

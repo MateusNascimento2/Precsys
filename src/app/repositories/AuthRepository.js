@@ -5,7 +5,7 @@ class AuthRepository {
   async IsCpfCnpjRegistered(cpfcnpj) {
     const [row] = await db.query(`
     SELECT *
-    FROM precsysa_dev.users
+    FROM precsysapp_demo.users
     WHERE users.cpfcnpj = ?
     `, [cpfcnpj]);
 
@@ -19,7 +19,7 @@ class AuthRepository {
   async IsRegistered(cpfcnpj, password) {
     const [row] = await db.query(`
     SELECT *
-    FROM precsysa_dev.users
+    FROM precsysapp_demo.users
     WHERE users.cpfcnpj = ?
   `, [cpfcnpj]);
 
@@ -35,6 +35,12 @@ class AuthRepository {
       return row;
     }
     return null;
+  }
+
+  async clientLog(clientID, clientIp, data) {
+    const row = await db.query('INSERT INTO precsysapp_demo.logs_login(usuario, ip, data) VALUES(?, ?, ?)', [clientID, clientIp, data]);
+
+    return row;
   }
 }
 
