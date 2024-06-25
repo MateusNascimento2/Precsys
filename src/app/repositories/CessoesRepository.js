@@ -20,9 +20,52 @@ class CessoesRepository {
     return row;
   }
 
+  async update(id, {
+    precatorioEditado,
+    processoEditado,
+    cedenteEditado,
+    varaEditado,
+    enteEditado,
+    anoEditado,
+    naturezaEditado,
+    empresaEditado,
+    dataCessaoEditado,
+    repComercialEditado,
+    escreventeEditado,
+    juridicoEditado,
+  }) {
+    const row = await db.query(`
+    UPDATE precsysapp_demo.cessoes
+    SET precatorio = ?, processo = ?, cedente = ?, vara_processo = ?, ente_id = ?, ano = ?, natureza = ?, empresa_id = ?, data_cessao = ?, tele_id = ?, escrevente_id = ?, juridico_id = ?
+    WHERE id = ?
+    `, [precatorioEditado,
+      processoEditado,
+      cedenteEditado,
+      varaEditado,
+      enteEditado,
+      anoEditado,
+      naturezaEditado,
+      empresaEditado,
+      dataCessaoEditado,
+      repComercialEditado,
+      escreventeEditado,
+      juridicoEditado, id]);
+
+    return row;
+  }
+
   async delete(id) {
+    // Deleta a cessão específica
     const deleteOp = await db.query('DELETE FROM precsysapp_demo.cessoes WHERE id = ?', [id]);
-    return deleteOp;
+
+    // Deleta os cessionários associados à cessão
+    const deleteCessionario = await db.query('DELETE FROM precsysapp_demo.cessionarios WHERE cessao_id = ?', [id]);
+
+    // Retorna ambos os resultados (opcionalmente, pode retornar apenas o necessário)
+    return {
+      deleteOp,
+      deleteCessionario,
+    };
   }
 }
 

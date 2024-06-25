@@ -1,4 +1,5 @@
 const bcrypt = require('bcrypt');
+const { list } = require('@vercel/blob');
 const UsersRepository = require('../repositories/UsersRepository');
 
 class UserController {
@@ -6,6 +7,18 @@ class UserController {
     // Listar todos os usuarios
     const { orderBy } = request.query;
     const users = await UsersRepository.findAll(orderBy);
+
+    const { blobs } = await list();
+    console.log({ blobs });
+
+    // Loop para adicionar a URL do blob no objeto de usuário
+    users.forEach((user) => {
+      const matchingBlob = blobs.find((blob) => blob.pathname === user.foto);
+      if (matchingBlob) {
+        // eslint-disable-next-line no-param-reassign
+        user.photoUrl = matchingBlob.url; // Adiciona a URL ao objeto de usuário
+      }
+    });
 
     return response.json(users);
   }
