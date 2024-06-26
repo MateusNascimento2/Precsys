@@ -59,6 +59,8 @@ router.delete('/api/cessoes/:id', CessaoController.delete);
 
 router.get('/api/cessionarios', CessionarioController.index);
 router.post('/api/cessionarios', CessionarioController.store);
+router.put('/api/cessionarios/:id', CessionarioController.update);
+router.delete('/api/cessionarios/:id', CessionarioController.delete);
 
 router.get('/api/andamentos/:precatorio', AndamentoController.index);
 

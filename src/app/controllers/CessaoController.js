@@ -196,7 +196,7 @@ class CessaoController {
       juridicoEditado,
     });
 
-    return response.json(cessao);
+    return response.status(200).json(cessao);
   }
 
   async delete(request, response) {
