@@ -1,4 +1,5 @@
 const { Router } = require('express');
+const multer = require('multer');
 const UserController = require('./app/controllers/UserController');
 const AuthController = require('./app/controllers/AuthController');
 const RefreshTokenController = require('./app/controllers/RefreshTokenController');
@@ -21,8 +22,11 @@ const JurosPoupancaController = require('./app/controllers/JurosPoupancaControll
 const SelicAcumuladoJFController = require('./app/controllers/SelicAcumuladoJFController');
 const LogsController = require('./app/controllers/LogsController');
 const PropostasLogsController = require('./app/controllers/PropostasLogsController');
+const UploadFileController = require('./app/controllers/UploadFileController');
+const DownloadFileController = require('./app/controllers/DownloadFileController');
 
 const router = Router();
+const upload = multer({ storage: multer.memoryStorage() });
 
 router.post('/api/checkCpfCnpj', AuthController.checkCpfCnpj);
 router.post('/api/login', AuthController.login);
@@ -80,5 +84,9 @@ router.get('/api/selicAcumuladoJF', SelicAcumuladoJFController.index);
 
 router.get('/api/loginLogs', LogsController.index);
 router.get('/api/propostasLogs', PropostasLogsController.index);
+
+router.post('/api/upload', upload.fields([{ name: 'requisitorio', maxCount: 1 }, { name: 'escritura', maxCount: 1 }]), UploadFileController.upload);
+
+router.get('/api/download/:path/:filename', DownloadFileController.download);
 
 module.exports = router;

@@ -13,9 +13,9 @@ class CessoesRepository {
 
   async create({
     precatorio, processo, cedente, vara, ente, ano, natureza, empresa,
-    dataCessao, repComercial, escrevente, juridico, status,
+    dataCessao, repComercial, escrevente, juridico, status, escritura, requisitorio,
   }) {
-    const row = await db.query('INSERT INTO precsysapp_demo.cessoes(precatorio, ente_id, ano, natureza, processo, vara_processo, cedente, data_cessao, empresa_id, escrevente_id, juridico_id, tele_id, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)', [precatorio, ente, ano, natureza, processo, vara, cedente, dataCessao, empresa, escrevente, juridico, repComercial, status]);
+    const row = await db.query('INSERT INTO precsysapp_demo.cessoes(precatorio, ente_id, ano, natureza, processo, vara_processo, cedente, data_cessao, empresa_id, escrevente_id, juridico_id, tele_id, status, escritura, requisitorio) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)', [precatorio, ente, ano, natureza, processo, vara, cedente, dataCessao, empresa, escrevente, juridico, repComercial, status, escritura, requisitorio]);
 
     return row;
   }

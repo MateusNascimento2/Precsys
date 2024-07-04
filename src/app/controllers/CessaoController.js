@@ -49,7 +49,7 @@ class CessaoController {
 
     const {
       precatorio, processo, cedente, vara, ente, ano, natureza, empresa,
-      dataCessao, repComercial, escrevente, juridico, status,
+      dataCessao, repComercial, escrevente, juridico, status, escritura, requisitorio,
     } = request.body;
 
     if (!precatorio) {
@@ -110,6 +110,8 @@ class CessaoController {
       escrevente,
       juridico,
       status,
+      escritura,
+      requisitorio,
     });
 
     return response.status(201).json(cessao);
