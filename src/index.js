@@ -13,6 +13,7 @@ const allowedOrigins = [
   'https://dc52f968-3718-41d0-ac25-fe71659c3cac-00-28j7vjdkqe4xr.kirk.replit.dev',
   'http://localhost:3000',
   'https://testeapi.precsys.app.br',
+  'https://newapi.precsys.app.br',
 ];
 
 // Middleware para configurar o cabeçalho Access-Control-Allow-Origin
